@@ -1,0 +1,218 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x12f616850 .scope module, "ins" "ins" 2 41;
+ .timescale 0 0;
+v0x12f62b8b0_0 .var/s "A", 2 0;
+v0x12f62b960_0 .net "S", 2 0, L_0x12f62c830;  1 drivers
+v0x12f62ba30_0 .var/s "i", 0 0;
+S_0x12f60ab60 .scope module, "t1" "twocomp" 2 47, 2 26 0, S_0x12f616850;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 3 "S";
+    .port_info 1 /INPUT 3 "A";
+    .port_info 2 /INPUT 1 "i";
+L_0x12f62bac0 .functor NOT 1, L_0x12f62bb70, C4<0>, C4<0>, C4<0>;
+L_0x12f62bc90 .functor NOT 1, L_0x12f62bd20, C4<0>, C4<0>, C4<0>;
+L_0x12f62bf60 .functor NOT 1, L_0x12f62c010, C4<0>, C4<0>, C4<0>;
+v0x12f62b090_0 .net "A", 2 0, v0x12f62b8b0_0;  1 drivers
+o0x120040550 .functor BUFZ 1, C4<z>; HiZ drive
+v0x12f62b140_0 .net "C1", 0 0, o0x120040550;  0 drivers
+v0x12f62b1e0_0 .net "S", 2 0, L_0x12f62c830;  alias, 1 drivers
+v0x12f62b290_0 .net *"_ivl_0", 0 0, L_0x12f62bac0;  1 drivers
+v0x12f62b330_0 .net *"_ivl_12", 0 0, L_0x12f62c010;  1 drivers
+v0x12f62b420_0 .net *"_ivl_3", 0 0, L_0x12f62bb70;  1 drivers
+v0x12f62b4d0_0 .net *"_ivl_4", 0 0, L_0x12f62bc90;  1 drivers
+v0x12f62b580_0 .net *"_ivl_7", 0 0, L_0x12f62bd20;  1 drivers
+v0x12f62b630_0 .net *"_ivl_8", 0 0, L_0x12f62bf60;  1 drivers
+v0x12f62b740_0 .net "i", 0 0, v0x12f62ba30_0;  1 drivers
+v0x12f62b7d0_0 .net "notA", 2 0, L_0x12f62be00;  1 drivers
+L_0x12f62bb70 .part v0x12f62b8b0_0, 0, 1;
+L_0x12f62bd20 .part v0x12f62b8b0_0, 1, 1;
+L_0x12f62be00 .concat8 [ 1 1 1 0], L_0x12f62bac0, L_0x12f62bc90, L_0x12f62bf60;
+L_0x12f62c010 .part v0x12f62b8b0_0, 2, 1;
+S_0x12f60acd0 .scope module, "i1" "increm" 2 37, 2 13 0, S_0x12f60ab60;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 3 "S";
+    .port_info 1 /INPUT 3 "A";
+    .port_info 2 /INPUT 1 "i";
+v0x12f62ac10_0 .net "A", 2 0, L_0x12f62be00;  alias, 1 drivers
+v0x12f62acd0_0 .net "C", 0 0, L_0x12f62c780;  1 drivers
+v0x12f62ad70_0 .net "S", 2 0, L_0x12f62c830;  alias, 1 drivers
+v0x12f62ae20_0 .net "c1", 0 0, L_0x12f62c280;  1 drivers
+v0x12f62aef0_0 .net "c2", 0 0, L_0x12f62c4c0;  1 drivers
+v0x12f62b000_0 .net "i", 0 0, v0x12f62ba30_0;  alias, 1 drivers
+L_0x12f62c2f0 .part L_0x12f62be00, 0, 1;
+L_0x12f62c570 .part L_0x12f62be00, 1, 1;
+L_0x12f62c830 .concat8 [ 1 1 1 0], L_0x12f62c170, L_0x12f62c390, L_0x12f62c690;
+L_0x12f62c990 .part L_0x12f62be00, 2, 1;
+S_0x12f60c390 .scope module, "HA1" "halfadder" 2 21, 2 1 0, S_0x12f60acd0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "S";
+    .port_info 1 /OUTPUT 1 "C";
+    .port_info 2 /INPUT 1 "x";
+    .port_info 3 /INPUT 1 "y";
+L_0x12f62c170 .functor XOR 1, L_0x12f62c2f0, v0x12f62ba30_0, C4<0>, C4<0>;
+L_0x12f62c280 .functor AND 1, L_0x12f62c2f0, v0x12f62ba30_0, C4<1>, C4<1>;
+v0x12f6096d0_0 .net "C", 0 0, L_0x12f62c280;  alias, 1 drivers
+v0x12f629f70_0 .net "S", 0 0, L_0x12f62c170;  1 drivers
+v0x12f62a010_0 .net "x", 0 0, L_0x12f62c2f0;  1 drivers
+v0x12f62a0c0_0 .net "y", 0 0, v0x12f62ba30_0;  alias, 1 drivers
+S_0x12f62a1c0 .scope module, "HA2" "halfadder" 2 22, 2 1 0, S_0x12f60acd0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "S";
+    .port_info 1 /OUTPUT 1 "C";
+    .port_info 2 /INPUT 1 "x";
+    .port_info 3 /INPUT 1 "y";
+L_0x12f62c390 .functor XOR 1, L_0x12f62c280, L_0x12f62c570, C4<0>, C4<0>;
+L_0x12f62c4c0 .functor AND 1, L_0x12f62c280, L_0x12f62c570, C4<1>, C4<1>;
+v0x12f62a3f0_0 .net "C", 0 0, L_0x12f62c4c0;  alias, 1 drivers
+v0x12f62a490_0 .net "S", 0 0, L_0x12f62c390;  1 drivers
+v0x12f62a530_0 .net "x", 0 0, L_0x12f62c280;  alias, 1 drivers
+v0x12f62a600_0 .net "y", 0 0, L_0x12f62c570;  1 drivers
+S_0x12f62a6e0 .scope module, "HA3" "halfadder" 2 23, 2 1 0, S_0x12f60acd0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "S";
+    .port_info 1 /OUTPUT 1 "C";
+    .port_info 2 /INPUT 1 "x";
+    .port_info 3 /INPUT 1 "y";
+L_0x12f62c690 .functor XOR 1, L_0x12f62c4c0, L_0x12f62c990, C4<0>, C4<0>;
+L_0x12f62c780 .functor AND 1, L_0x12f62c4c0, L_0x12f62c990, C4<1>, C4<1>;
+v0x12f62a920_0 .net "C", 0 0, L_0x12f62c780;  alias, 1 drivers
+v0x12f62a9c0_0 .net "S", 0 0, L_0x12f62c690;  1 drivers
+v0x12f62aa60_0 .net "x", 0 0, L_0x12f62c4c0;  alias, 1 drivers
+v0x12f62ab30_0 .net "y", 0 0, L_0x12f62c990;  1 drivers
+    .scope S_0x12f616850;
+T_0 ;
+    %vpi_call 2 50 "$monitor", "%b %b ", v0x12f62b8b0_0, v0x12f62b960_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x12f62b8b0_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x12f62ba30_0, 0, 1;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "3bittwocomplemter.v";

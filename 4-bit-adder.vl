@@ -1,0 +1,67 @@
+module halfadder (S,C,x,y); 
+   input x,y; 
+   output S,C; 
+//Instantiate primitive gates 
+   xor (S,x,y); 
+   and (C,x,y); 
+endmodule 
+
+//Description of full adder (see Fig 4-8) 
+module fulladder (S,C,x,y,z); 
+   input x,y,z; 
+   output S,C; 
+   wire S1,D1,D2; //Outputs of first XOR and two AND gates 
+//Instantiate the halfadder 
+    halfadder HA1 (S1,D1,x,y), 
+              HA2 (S,D2,S1,z); 
+    or g1(C,D2,D1); 
+endmodule 
+
+//Description of 4-bit adder (see Fig 4-9) 
+module _4bit_adder (S,C4,A,B,C0); 
+   input [3:0] A,B; 
+   input C0; 
+   output [3:0] S; 
+   output C4; 
+   wire C1,C2,C3;  //Intermediate carries 
+//Instantiate the fulladder 
+   fulladder  FA0 (S[0],C1,A[0],B[0],C0), 
+              FA1 (S[1],C2,A[1],B[1],C1), 
+              FA2 (S[2],C3,A[2],B[2],C2), 
+              FA3 (S[3],C4,A[3],B[3],C3); 
+endmodule
+
+// Test module 
+module test_adder;
+reg signed [3:0] A,B;
+reg C0; 
+wire signed [3:0] S;
+wire C4; 
+
+_4bit_adder adder (S,C4,A,B,C0); //Instantiate the 4-bit adder
+
+  initial 
+     begin 
+           A=0;  B=0; C0=0; 
+       #10 A=0;  B=1; C0=1; 
+       #10 A=1;  B=7; C0=0; 
+       #10 A=-1; B=0; C0=1; 
+     end 
+
+  initial 
+     begin
+       $display("Time  A        B        C0 S        C4"); 
+       $monitor("%4d  %b(%d) %b(%d) %b  %b(%d) %b",$time,A,A,B,B,C0,S,S,C4); 
+     end
+
+endmodule
+
+/* Simulation Output
+
+Time  A        B        C0 S        C4
+   0  0000( 0) 0000( 0) 0  0000( 0) 0
+  10  0000( 0) 0001( 1) 1  0010( 2) 0
+  20  0001( 1) 0111( 7) 0  1000(-8) 0
+  30  1111(-1) 0000( 0) 1  0000( 0) 1
+*/
+

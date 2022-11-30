@@ -1,0 +1,69 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x13e004c40 .scope module, "test1" "test1" 2 12;
+ .timescale 0 0;
+v0x13e017d70_0 .var "a", 0 0;
+v0x13e017e10_0 .var "b", 0 0;
+v0x13e017ec0_0 .var "c", 0 0;
+v0x13e017f90_0 .net "s", 0 0, L_0x13e0182d0;  1 drivers
+S_0x13e004db0 .scope module, "m1" "mult" 2 15, 2 1 0, S_0x13e004c40;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "x";
+    .port_info 1 /INPUT 1 "y";
+    .port_info 2 /INPUT 1 "z";
+    .port_info 3 /OUTPUT 1 "S";
+L_0x13e018040 .functor NOT 1, v0x13e017ec0_0, C4<0>, C4<0>, C4<0>;
+L_0x13e018110 .functor AND 1, v0x13e017d70_0, L_0x13e018040, C4<1>, C4<1>;
+L_0x13e018220 .functor AND 1, v0x13e017e10_0, v0x13e017ec0_0, C4<1>, C4<1>;
+L_0x13e0182d0 .functor OR 1, L_0x13e018110, L_0x13e018220, C4<0>, C4<0>;
+v0x13e005d80_0 .net "S", 0 0, L_0x13e0182d0;  alias, 1 drivers
+v0x13e017960_0 .net "c0", 0 0, L_0x13e018040;  1 drivers
+v0x13e017a00_0 .net "c1", 0 0, L_0x13e018110;  1 drivers
+v0x13e017a90_0 .net "c2", 0 0, L_0x13e018220;  1 drivers
+v0x13e017b20_0 .net "x", 0 0, v0x13e017d70_0;  1 drivers
+v0x13e017bf0_0 .net "y", 0 0, v0x13e017e10_0;  1 drivers
+v0x13e017c90_0 .net "z", 0 0, v0x13e017ec0_0;  1 drivers
+    .scope S_0x13e004c40;
+T_0 ;
+    %vpi_call 2 17 "$monitor", "%b %b %b, %b", v0x13e017d70_0, v0x13e017e10_0, v0x13e017ec0_0, v0x13e017f90_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017d70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017e10_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017ec0_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017d70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x13e017e10_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017ec0_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x13e017d70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017e10_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017ec0_0, 0, 1;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x13e017d70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x13e017e10_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x13e017ec0_0, 0, 1;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "2x1mult.v";
