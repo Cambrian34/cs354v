@@ -10,15 +10,15 @@ module cpu (Instruction, WriteData, CLK);
    wire [8:0] IR;
    wire [3:0] A,B,Result;
    wire [2:0] ALUctl;
-   //done
+   //done.
    instr_reg instr(Instruction,IR,CLK);
-   //done
+   //done.
    control ctl (IR[8:6],Sel,ALUctl);
-   //done
+   //done.
    quad2x1mux mux(IR[5:2],Result,Sel,WriteData);
    //
    regfile regs(IR[5:4],IR[3:2],IR[1:0],WriteData,A,B,CLK);
-   //done
+   //done? used behavioural version due to overflow error in my ALU codebase.
    ALU alu (ALUctl, A, B, Result);
 endmodule
 
@@ -108,6 +108,23 @@ and(w[5],a[2],no[1],no[0]);
 or(b[0],w[4],w[5]);
 
 endmodule
+module mux4x1(     a,    b,  c,   d,          s0,         s1, ans);
+
+     
+output ans;
+input a, b, c, d, s0, s1;
+wire s0bar, s1bar, T1, T2, T3, T4;
+
+not (s0bar, s0);
+not (s1bar, s1);
+and (T1, a, s0bar, s1bar);
+and (T2, b, s0bar, s1);
+and (T3, c, s0, s1bar);
+and (T4, d, s0, s1);
+or(ans, T1, T2, T3, T4);
+
+
+endmodule
 //done
 //              IR[8:6],Sel,ALUctl
 module control (OP,Sel,ALUctl);
@@ -147,7 +164,7 @@ module ALU (ALUctl, A, B, ALUOut);
     3'b111: ALUOut <= A < B ? 1:0;
    endcase
 endmodule
-
+             //      2         2        2                    4          4   1
 //to do last.    IR[5:4],  IR[3:2], IR[1:0],WriteData,       A,         B,CLK
 module regfile (ReadReg1,ReadReg2,WriteReg,WriteData,ReadData1,ReadData2,CLK);
   input [1:0] ReadReg1,ReadReg2,WriteReg; //2bits
@@ -156,6 +173,7 @@ module regfile (ReadReg1,ReadReg2,WriteReg,WriteData,ReadData1,ReadData2,CLK);
   output [3:0] ReadData1,ReadData2;
   reg [3:0]Regs[0:3]; //4 registers with 4 bits each
   //R1,R2
+  wire [0:3] D,b;
 
 
 assign ReadData1 = Regs[ReadReg1];
@@ -164,12 +182,31 @@ initial Regs[0] = 0;
 always @(negedge CLK)
 Regs[WriteReg] = WriteData;
 
-//
-
-
+/*
+decoder dc(D,in[0],in[1],Clk);
+//Re
+Register R1(ReadReg1,Clk,ReadData1),
+           R2(ReadReg2,Clk,ReadData2),
+          R2(WriteReg,Clk,WriteData);
+mux4x1 m1(),
+         m2();
+*/
 
 endmodule
 
+module Register(in,Clk,b);
+input [3:0]in;
+output [3:0]b;
+input Clk;
+wire [3:0]a;
+//decoder dc(a,in[0],in[1],1'b1);
+D_flip_flop d1(in[0],Clk,b[0]),
+            d2(in[1],Clk,b[1]),
+            d3(in[2],Clk,b[2]),
+            d4(in[3],Clk,b[3]);
+       
+
+endmodule
 
 //done
 module quad2x1mux (I0,I1,Sel,Out);
@@ -220,7 +257,7 @@ reg [8:0] Instruction;
    begin
      $display("\nCLK Instruction WriteData\n-------------------------"); 
      $monitor("%b   %b   %d (%b)", CLK,Instruction,WriteData,WriteData);
-     #1 Instruction = 9'b101_0111_01; // li $1, 7 # $1 = 7
+#1 Instruction = 9'b101_0111_01; // li $1, 7 # $1 = 7
         CLK=1;
      #1 CLK=0; // Negative edge - execute instruction
      #1 Instruction = 9'b101_0101_10; // li $2, 5 # $2 = 5 
@@ -230,6 +267,28 @@ reg [8:0] Instruction;
         CLK=1;
      #1 CLK=0; // Negative edge - execute instruction
 //   Add more instructions
+     #1 Instruction = 9'b101_1010_11; //li
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b011_10_11_10;// or
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b010_10_11_11; //and
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b100_11_10_10; //slt
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b000_11_10_10;//add
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b000_01_10_11;//add
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+      #1 Instruction = 9'b100_10_11_01; //slt
+        CLK=1;
+     #1 CLK=0; // Negative edge - execute instruction
+
 //   ...
    end
     endmodule
@@ -241,4 +300,16 @@ x   xxxxxxxxx    x (xxxx)
 0   101010110    5 (0101)
 1   001011011    5 (0101)
 0   001011011    2 (0010)
+
+
+li $t1, 7                 # $t1 = 7
+li $t2, 5                 # $t2 = 5 (4'b0101)
+sub $t3, $t1, $t2   # $t3 = 2 (7-5=2)
+li $t3, 10               # $t3 = 10 (4'b1010)
+or $t2, $t2, $t3      # $t2 = 15 (4'b1111)
+and $t3, $t2, $t3   # $t3 = 10 (4'b1010)
+slt $t2, $t3, $t2      # $t2 = 1
+add $t2, $t3, $t2    # $t2 = 11 (4'b1011=-5)
+add $t3, $t1, $t2   # $t3 = 2 (7+(-5)=2)
+slt $t1, $t2, $t3      # $t1 = 0 (behavioral ALU) or 1 (gate-level ALU)
 */
